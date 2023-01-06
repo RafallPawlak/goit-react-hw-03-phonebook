@@ -1,0 +1,21 @@
+.card {
+    width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    padding: 35px;
+    background: rgb(224, 224, 224);
+    background: linear-gradient(0deg, rgba(224, 224, 224, 1) 0%, rgba(236, 236, 236, 1) 98%);
+    border: 1px solid #bfbfbf;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px 0px rgba(66, 68, 90, 0.35);
+}
+
+.title {
+    display: block;
+    margin-bottom: 15px;
+    margin-top: 0px;
+    text-align: center;
+    font-size: 20px;
+    color: #4a4a4a;
+}
