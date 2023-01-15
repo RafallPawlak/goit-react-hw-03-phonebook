@@ -18,53 +18,34 @@ export class App extends Component {
     filter: '',
   };
 
-  componentDidMount() {
-    const contacts = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(contacts);
+  addContact = event => {
+    event.preventDefault();
 
-    if (parsedContacts) {
-      this.setState({ contacts: parsedContacts });
-    }
-  };
+    const form = event.target;
+    const { name, number } = form.elements;
 
-   componentDidUpdate(prevState) {
-    const nextContacts = this.state.contacts;
-    const prevContacts = prevState.contacts;
-
-    if (nextContacts !== prevContacts) {
-      localStorage.setItem('contacts', JSON.stringify(nextContacts));
-    }
-  };
-
-
-  addContact = ({ name, number }) => {
-    const normalizedName = name.toLowerCase();
-    let isAdded = false;
-
-    this.state.contacts.forEach((element) => {
-      if (element.name.toLowerCase() === normalizedName) {
-        Report.warning(
-          'Phonebook Warning',
-          'The contact already exists with this name',
-          'Okay',
-        );
-        isAdded = true;
-      }
-    });
-
-    if (isAdded) {
-      return;
-    }
     const contact = {
+      name: name.value,
+      number: number.value,
       id: nanoid(),
-      name,
-      number,
     };
 
-    this.setState((prevState) => ({
+    if (this.state.contacts.find(contact => contact.name === name.value)) {
+      Report.warning(
+        'Phonebook Warning',
+        'The contact already exists with this name',
+        'Okay',
+      );
+      return;
+    }
+
+    this.setState(prevState => ({
       contacts: [...prevState.contacts, contact],
     }));
+    form.reset();
   };
+
+
 
   deleteContact = (id) => {
     this.setState((prevState) => ({
